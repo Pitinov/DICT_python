@@ -13,3 +13,15 @@ a = int(input("Now I will prove to you that I can count to any number you want."
 for i in range(a +1):
     print(str(i)+ "!")
 print ("Completed, have a nice day!")
+print ("Test.")
+print ("You Human?")
+print("1. Yes")
+print("2. No")
+while True:
+    q = int(input(">"))
+    if q == 1:
+        print("Cool")
+        print("Completed, have a nice day!")
+    else:
+        print("Please try again")
+print ("Congratulations, have a nice day!")
