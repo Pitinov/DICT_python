@@ -42,3 +42,4 @@ while play:
         exit = False
         break
 print("thanks for playing\nWe'll see how well you did in the next stage")
+input()
