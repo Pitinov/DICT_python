@@ -1,7 +1,7 @@
 import random
 print("HANGMAN")
 print("The game will be available soon.")
-WORLDS = ["python", "java"]
+WORLDS = ["python", "java", "php", "javascript"]
 word = random.choice(WORLDS)
 a = input("Guess the word :\n"">")
 while True:
@@ -11,3 +11,9 @@ while True:
     else:
         print("You lost")
         break
+lenght = '_' * len(word)
+a = input("Guess the word :" + word [:3] + "-".join([''for _ in range (len(word)-3)])+ "-\n>")
+if a == word:
+    print("You survive!")
+else:
+    print("You lose!")
