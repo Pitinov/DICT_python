@@ -18,6 +18,9 @@ if lucky:
     print(lucky_name, "is the lucky one!")
 else:
     print("No one is going to be lucky")
-a = round(money/number, 2)
-for name in payment:
-    payment[name] = a
+all_money = round(money / (number - int(lucky)), 2)
+for b in payment.keys():
+    payment[b] = all_money
+if lucky:
+    payment[lucky_name] = 0
+print(payment)
