@@ -24,3 +24,4 @@ for b in payment.keys():
 if lucky:
     payment[lucky_name] = 0
 print(payment)
+input()
