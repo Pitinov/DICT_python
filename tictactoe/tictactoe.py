@@ -1,111 +1,131 @@
-info = input('Enter cells: ')
-list_of_inputs = []
+game = [
+    ["", "", ""],
+    ["", "", ""],
+    ["", "", ""]
+]
+def print_board(board):
+    print("---------")
+    for row in board:
+        print("| " + " ".join(row) + " |")
+    print("---------")
+def valid_play(cells):
+    if len(cells) != 9:
+        print("There must be 9 plays")
+        return False
+    for letter in cells:
+        if letter != 'X' and letter != 'O' and letter != '':
+            print("Wrong move " + str(letter))
+            return False
+    return True
 
-for signs in info:
-    list_of_inputs.append(signs)
-
-nine_line = []
-for nine_lines in range(0, 9):
-    nine_line.append('-')
-print("".join(nine_line[:9]))
-
-start_index = 0
-end_index = 3
-for signs_inside in range(0, 3):
-    print('|', ' '.join(list_of_inputs[start_index:end_index]), '|')
-    start_index += 3
-    end_index += 3
-print("".join(nine_line[:9]))
+def update_board(row, row_number):
+    game[row_number] = row
 
 
-while True:
+def play(cells):
+    update_board(list(cells[3:]), 0)
+    update_board(list(cells[3:6]), 1)
+    update_board(list(cells[:3]), 2)
+
+
+def game_status(game):
+    winner = get_winner(game)
+    if winner:
+        return winner + " wins"
+    if "" in game[0] or "" in game[1] or "" in game[2]:
+        return "Game not finished"
+    else:
+        return "Draw"
+
+
+def valid_game(game, cells):
+    diff = cells.count('X') - cells.count('O')
+    if -1 <= diff <= 1:
+        wins = ""
+        for row in range(0, 3):
+            if game[row][0] == game[row][1] == game[row][2]:
+                winner = game[row][0]
+                if not wins or wins == winner:
+                    wins = winner
+                else:
+                    return False
+        for column in range(0, 3):
+            if game[0][column] == game[1][column] == game[2][column]:
+                winner = game[0][column]
+                if not wins or wins == winner:
+                    wins = winner
+                else:
+                    return False
+        return True
+    return False
+
+
+def get_winner(game):
+    for row in range(0, 3):
+        if game[row][0] == game[row][1] == game[row][2] != '':
+            return game[row][0]
+    for column in range(0, 3):
+        if game[0][column] == game[1][column] == game[2][column] != '':
+            return game[0][column]
+
+    if game[0][0] == game[1][1] == game[2][2] != '':
+        return game[0][0]
+    if game[0][2] == game[1][1] == game[2][0] != '':
+        return game[0][2]
+
+
+def valid_coord(game, inp):
     try:
-        coordinates = list(map(int, input('Enter the coordinates: ').split()))
-        actual_index = 0
+        c_x, c_y = get_coords(inp)
+    except Exception:
+        print("You should enter numbers!")
+        return False
 
-        if (1 <= coordinates[0] <= 3) and 1 <= coordinates[1] <= 3:
-            if coordinates == [1, 1]:
-                actual_index = 0
-            elif coordinates == [1, 2]:
-                actual_index = 1
-            elif coordinates == [1, 3]:
-                actual_index = 2
-            elif coordinates == [2, 1]:
-                actual_index = 3
-            elif coordinates == [2, 2]:
-                actual_index = 4
-            elif coordinates == [2, 3]:
-                actual_index = 5
-            elif coordinates == [3, 1]:
-                actual_index = 6
-            elif coordinates == [3, 2]:
-                actual_index = 7
-            elif coordinates == [3, 3]:
-                actual_index = 8
-            if list_of_inputs[actual_index] == '_':
+    if not (1 <= c_x <= 3 and 1 <= c_y <= 3):
+        print("Coordinates should be from 1 to 3!")
+        return False
 
-                print("".join(nine_line[:9]))
-                start_index = 0
-                end_index = 3
-                list_of_inputs.pop(actual_index)
-                list_of_inputs.insert(actual_index, 'X')
-                for signs_inside in range(0, 3):
-                    print('|', ' '.join(list_of_inputs[start_index:end_index]), '|')
-                    start_index += 3
-                    end_index += 3
-                print("".join(nine_line[:9]))
+    row, col = coords_to_row_col(c_x, c_y)
+    if game[row][col] != '':
+        print("This cell is occupied! Choose another one!")
+        return False
+    return True
 
-                start_index = 0
-                end_index = 3
-                x_count = list_of_inputs.count('X')
-                o_count = list_of_inputs.count('O')
 
-                x_winnings = 0
-                o_winnings = 0
-                while end_index < 9:
-                    if list_of_inputs[start_index:end_index].count('X') == 3:
-                        x_winnings += 1
-                    elif list_of_inputs[start_index:end_index].count('O') == 3:
-                        o_winnings += 1
-                    start_index += 3
-                    end_index += 3
-                if 'X' in list_of_inputs[0] and 'X' in list_of_inputs[3] and 'X' in list_of_inputs[6]:
-                    x_winnings += 1
-                if 'X' in list_of_inputs[1] and 'X' in list_of_inputs[4] and 'X' in list_of_inputs[7]:
-                    x_winnings += 1
-                if 'X' in list_of_inputs[2] and 'X' in list_of_inputs[5] and 'X' in list_of_inputs[8]:
-                    x_winnings += 1
-                if 'O' in list_of_inputs[0] and 'O' in list_of_inputs[3] and 'O' in list_of_inputs[6]:
-                    o_winnings += 1
-                if 'O' in list_of_inputs[1] and 'O' in list_of_inputs[4] and 'O' in list_of_inputs[7]:
-                    o_winnings += 1
-                if 'O' in list_of_inputs[2] and 'O' in list_of_inputs[5] and 'O' in list_of_inputs[8]:
-                    o_winnings += 1
-                if 'X' in list_of_inputs[0] and 'X' in list_of_inputs[4] and 'X' in list_of_inputs[8]:
-                    x_winnings += 1
-                if 'X' in list_of_inputs[2] and 'X' in list_of_inputs[4] and 'X' in list_of_inputs[6]:
-                    x_winnings += 1
-                if 'O' in list_of_inputs[0] and 'O' in list_of_inputs[4] and 'O' in list_of_inputs[8]:
-                    o_winnings += 1
-                if 'O' in list_of_inputs[2] and 'O' in list_of_inputs[4] and 'O' in list_of_inputs[6]:
-                    o_winnings += 1
-                if x_count > o_count:
-                    if x_count - o_count >= 2 or x_winnings + o_winnings > 1:
-                        exit()
-                if o_count > x_count:
-                    if o_count - x_count >= 2 or x_winnings + o_winnings > 1:
-                        exit()
-                if x_winnings + o_winnings == 0 and list_of_inputs.count('_') > 0:
-                    exit()
-                if x_winnings + o_winnings == 0 and list_of_inputs.count('_') == 0:
-                    exit()
-                if x_winnings == 1:
-                    exit()
-                if o_winnings == 1:
-                    exit()
-            elif list_of_inputs[actual_index] != '_':
-                    print('This cell is occupied! Choose another one!')
-        elif (coordinates[0] < 1 or coordinates[0] > 3) or (coordinates[1] < 1 or coordinates[1] > 3):
-                    print('Coordinates should be from 1 to 3!')
-    except ValueError:
-        print('You should enter numbers!')
+def coords_to_row_col(x, y):
+    col = int(x) - 1
+    row = int(y) - 1
+    return row, col
+
+
+def get_coords(inp):
+    x, y = inp.strip().split(" ")
+    return int(x), int(y)
+
+
+def make_move(game, x, y, symb):
+    row, col = coords_to_row_col(x, y)
+    game[row][col] = symb
+
+
+status = "playing"
+play_round = 0
+symbols = ["0", "X"]
+final_status = ["Draw", "X wins", "O wins"]
+print_board(game)
+
+while status not in final_status:
+    play_round = play_round + 1
+    symbol = symbols[play_round % 2]
+    inp = input("Enter the coordinates:")
+
+    while not valid_coord(game, inp):
+        inp = input("Enter the coordinates:")
+
+    coord_x, coord_y = get_coords(inp)
+    make_move(game, coord_x, coord_y, symbol)
+
+    print_board(game)
+    status = game_status(game)
+
+print(status)
