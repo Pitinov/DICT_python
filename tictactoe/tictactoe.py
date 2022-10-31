@@ -129,3 +129,4 @@ while status not in final_status:
     status = game_status(game)
 
 print(status)
+input()
