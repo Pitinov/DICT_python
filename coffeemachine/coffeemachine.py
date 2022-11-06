@@ -39,8 +39,14 @@ class CoffeeMachine:
             print(f"{self.cups} of disposable cups")
             print(f"{self.money} of money")
         elif self.status == "make":
-            type_of_coffee = int(command)
-            if type_of_coffee == 1:
+            try:
+                type_of_coffee = int(command)
+            except:
+                type_of_coffee = 4
+            if type_of_coffee == 4:
+                self.status = "wait"
+                return
+            elif type_of_coffee == 1:
                 self.__make_coffee(4, 250, 16)
             elif type_of_coffee == 2:
                 self.__make_coffee(7, 350, 20, 75)
@@ -67,7 +73,7 @@ while True:
     action = input("Write action (buy, fill, take, remaining, exit):\n>")
     coffee_machine.action(action)
     if action == "buy":
-        type_of_coffee = input("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino:\n>")
+        type_of_coffee = input("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino, 4 - back to menu:\n>")
         coffee_machine.action(type_of_coffee)
     elif action == "fill":
         water = input("Write how many ml of water you want to add:\n>")
