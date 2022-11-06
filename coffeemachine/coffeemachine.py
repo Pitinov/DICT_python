@@ -4,7 +4,7 @@ class CoffeeMachine:
     coffee = 120
     money = 550
     cups = 9
-    status ="wait"
+    status = "wait"
     counter = 0
     def __make_coffee(salf, take_money, need_water, need_coffee, need_milk = 0):
         if salf.water < need_water:
