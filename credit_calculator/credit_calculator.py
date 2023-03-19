@@ -1,15 +1,23 @@
-credit = float(input("Enter the load principal: \n>"))
-task = input("What do you want to calculate?\n\
-type 'm'  for number of monthly payments\n\
-type 'p' – for the monthly payment:\n\
+from tasks import BrainOfCalc
+
+
+class CreditCalc:
+    task = ''
+    while task != 'ex':
+        task = input("What do you want to calculate?\n\
+type 'n' for number of monthly payments,\n\
+type 'a' for annuity monthly payment amount,:\n\
+type 'p' for loan principal:\n\
+type 'ex' to exit\n\
 > ")
-if task == "m":
-    payment = int(input("Enter the monthly payment\n\
->"))
-    monthly_payment = credit // payment
-    print("It will take", monthly_payment,"months to repay the loan")
-elif task == "p":
-    month = int(input("Enter the number of months:\n\
-> "))
-    monthly_payment = credit // month
-    print("Your monthly payment =", monthly_payment)
+
+
+if task == 'n':
+    BrainOfCalc.n_type()
+elif task == 'a':
+    BrainOfCalc.a_type()
+elif task == 'p':
+    BrainOfCalc.p_type()
+elif task == 'ex':
+    print("good bye!")
+    break
