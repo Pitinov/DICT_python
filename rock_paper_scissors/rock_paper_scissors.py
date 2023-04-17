@@ -1,20 +1,21 @@
 import random
 
-# список опцій гри
-options = ['rock', 'paper', 'scissors']
+# список доступних варіантів гри
+options = ["rock", "paper", "scissors"]
 
-# зчитати ввід користувача
-user_choice = input()
+# зчитуємо введення користувача
+user_choice = input("Enter your choice (rock/paper/scissors): ").lower()
 
-# знайти опцію, яка перемагає опцію користувача
-if user_choice == 'rock':
-    computer_choice = 'paper'
-elif user_choice == 'paper':
-    computer_choice = 'scissors'
-elif user_choice == 'scissors':
-    computer_choice = 'rock'
+# вибираємо випадковий варіант комп'ютера
+computer_choice = random.choice(options)
+
+# виводимо вибір комп'ютера
+print("The computer chose:", computer_choice)
+
+# порівнюємо варіанти користувача та комп'ютера
+if user_choice == computer_choice:
+    print("There is a draw ({})".format(user_choice))
+elif (user_choice == "rock" and computer_choice == "scissors") or (user_choice == "paper" and computer_choice == "rock") or (user_choice == "scissors" and computer_choice == "paper"):
+    print("Well done. The computer chose {} and failed".format(computer_choice))
 else:
-    print('Invalid input. Please enter rock, paper, or scissors.')
-
-# вивести рядок з вибором комп'ютера
-print(f"Sorry, but the computer chose {computer_choice}")
+    print("Sorry, but the computer chose {}".format(computer_choice))
