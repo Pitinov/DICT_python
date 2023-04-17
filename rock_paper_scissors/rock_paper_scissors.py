@@ -1,21 +1,21 @@
 import random
 
-# список доступних варіантів гри
-options = ["rock", "paper", "scissors"]
+options = ['rock', 'paper', 'scissors']
 
-# зчитуємо введення користувача
-user_choice = input("Enter your choice (rock/paper/scissors): ").lower()
-
-# вибираємо випадковий варіант комп'ютера
-computer_choice = random.choice(options)
-
-# виводимо вибір комп'ютера
-print("The computer chose:", computer_choice)
-
-# порівнюємо варіанти користувача та комп'ютера
-if user_choice == computer_choice:
-    print("There is a draw ({})".format(user_choice))
-elif (user_choice == "rock" and computer_choice == "scissors") or (user_choice == "paper" and computer_choice == "rock") or (user_choice == "scissors" and computer_choice == "paper"):
-    print("Well done. The computer chose {} and failed".format(computer_choice))
-else:
-    print("Sorry, but the computer chose {}".format(computer_choice))
+while True:
+    user_input = input()
+    if user_input == "!exit":
+        print("Bye!")
+        break
+    elif user_input not in options:
+        print("Invalid input")
+    else:
+        computer_choice = random.choice(options)
+        if user_input == computer_choice:
+            print(f"There is a draw ({computer_choice})")
+        elif user_input == "rock" and computer_choice == "scissors" \
+                or user_input == "paper" and computer_choice == "rock" \
+                or user_input == "scissors" and computer_choice == "paper":
+            print(f"Well done. The computer chose {computer_choice} and failed")
+        else:
+            print(f"Sorry, but the computer chose {computer_choice}")
